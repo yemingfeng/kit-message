@@ -1,0 +1,17 @@
+kit-message:
+  server:
+    port: 8800
+    # 默认值 60s
+    idle: 60
+
+spring:
+  application:
+    name: kit-message-center
+  redis:
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: 100
+    host: localhost
+    port: 6379

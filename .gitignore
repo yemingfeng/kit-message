@@ -1,0 +1,11 @@
+target
+.settings
+.project
+.classpath
+.idea/
+logs
+*.iml
+*.log
+*.pyc
+.DS_Store
+venv/
