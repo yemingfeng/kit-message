@@ -4,16 +4,24 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.kit.message</groupId>
+  <groupId>io.github.yemingfeng</groupId>
   <artifactId>kit-message</artifactId>
   <packaging>pom</packaging>
 
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <modules>
     <module>kit-message-center</module>
     <module>kit-message-client</module>
     <module>kit-message-common</module>
   </modules>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+  <name>kit-message</name>
+  <url>https://github.com/yemingfeng/kit-message</url>
 
   <properties>
     <java.version>11</java.version>
@@ -54,9 +62,9 @@
       </dependency>
 
       <dependency>
-        <groupId>com.kit.message</groupId>
+        <groupId>io.github.yemingfeng</groupId>
         <artifactId>kit-message-common</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -66,12 +74,97 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
         <configuration>
           <source>${java.version}</source>
           <target>${java.version}</target>
-          <encoding>UTF-8</encoding>
         </configuration>
+      </plugin>
+      <!-- Source -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.2.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- Javadoc -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <configuration>
+          <additionalparam>-Xdoclint:none</additionalparam><!-- 添加这个压制JavaDoc检查 -->
+        </configuration>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
+
+  <!-- license -->
+  <licenses>
+    <license>
+      <name>GNU General Public License version 3</name>
+      <url>https://opensource.org/licenses/GPL-3.0</url>
+    </license>
+  </licenses>
+
+  <!-- scm -->
+  <scm>
+    <tag>master</tag>
+    <url>https://github.com/yemingfeng/kit-message.git</url>
+    <connection>scm:git:https://github.com/yemingfeng/kit-message.git</connection>
+    <developerConnection>scm:git:git@github.com:yemingfeng/kit-message.git</developerConnection>
+  </scm>
+
+  <!-- developers -->
+  <developers>
+    <developer>
+      <id>yemingfeng</id>
+      <name>yemingfeng</name>
+      <email>393162333@qq.com</email>
+      <url>https://github.com/yemingfeng</url>
+    </developer>
+  </developers>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <name>OSS Snapshots Repository</name>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <name>OSS Staging Repository</name>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 </project>
