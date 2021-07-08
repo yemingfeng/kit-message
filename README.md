@@ -9,24 +9,25 @@ https://github.com/yemingfeng/kit-message
 1. 应用集群部署，并且使用了 local cache。当要清除缓存时，通过 rpc / 消息队列清除，只能清除接收到消息的那个节点，无法清除整个应用集群的 local cache 导致，节点
    2、节点 3 存在脏数据。
 
-![](https://gitee.com/Aidenboss/kit-message/raw/master/img/Selection_014.png)
+![](https://raw.githubusercontent.com/yemingfeng/kit-message/master/img/Selection_014.png)
 
 2. 应用集群部署，存在耗时的计算，为了减少计算资源浪费，某个节点更新后需要通知集群内其他节点更新
 
-![](https://gitee.com/Aidenboss/kit-message/raw/master/img/Selection_015.png)
+![](https://raw.githubusercontent.com/yemingfeng/kit-message/master/img/Selection_015.png)
 
 这里的场景本质是，消息如何广播？ 那么会有人问为什么不使用消息队列？ 因为消息队列无法很**优美**的实现这里的场景。比如说 kafka，使用不同的 consumer_group
 就可以实现，但不优雅。所以开启了 kit-message 这个项目。
 
 ##### 技术清单
 
+- java11
 - springboot
 - netty
 - redis
 
 ##### 核心逻辑
 
-![](https://gitee.com/Aidenboss/kit-message/raw/master/img/Selection_009.png)
+![](https://raw.githubusercontent.com/yemingfeng/kit-message/master/img/Selection_009.png)
 
 - kit-message-center: 消息中心服务，接收 kit-message-client 订阅消息或者发布消息
 - kit-message-client：一个 Java 的轻量级 client 实现
