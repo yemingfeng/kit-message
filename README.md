@@ -38,12 +38,25 @@ https://github.com/yemingfeng/kit-message
 
 ###### server 启动
 
-1. 修改 kit-message-center / application.yml 中 redis 的配置
+本地启动
+
+1. 修改 kit-message-center / application.yml 中 redis 的配置，配置遵循 springboot 规范
 2. mvn clean package
 3. java -jar kit-message-server/target/kit-message-center.jar
 4. server 会监听 8800 端口
 
 ###### client 使用
+
+增加依赖
+
+```xml
+
+<dependency>
+  <groupId>io.github.yemingfeng</groupId>
+  <artifactId>kit-message-client</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
 
 发布消息
 
