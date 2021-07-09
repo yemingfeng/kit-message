@@ -55,6 +55,7 @@ public class MessageServiceImpl implements MessageService {
       }
       ctxTopics.get(ctx).add(topic);
     }
+    log.info("[{}] register: [{}]", ctx.channel().remoteAddress(), topic);
   }
 
   @Override
@@ -72,6 +73,7 @@ public class MessageServiceImpl implements MessageService {
         ctxTopics.get(ctx).remove(topic);
       }
     }
+    log.info("[{}] unregister: [{}]", ctx.channel().remoteAddress(), topic);
   }
 
   @Override
@@ -86,11 +88,13 @@ public class MessageServiceImpl implements MessageService {
         });
       }
     }
+    log.info("[{}] unregister all", ctx.channel().remoteAddress());
   }
 
   @Override
   public void pub(ChannelHandlerContext ctx, String topic, String payload) {
     stringRedisTemplate.convertAndSend(topic, payload);
+    log.info("[{}] pub: [{}] to topic: [{}]", ctx.channel().remoteAddress(), payload, topic);
   }
 
   private MessageListener generateMessageListener() {
